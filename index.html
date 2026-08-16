@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA Venice Privada</title>
+    <title>Oliveira 2s - IA Completa</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -22,18 +22,47 @@
             justify-content: space-between;
             align-items: center;
         }
-        #header h1 { font-size: 18px; display: flex; align-items: center; gap: 8px; }
-        .online { color: #4CAF50; font-size: 10px; }
+        #header-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        #header h1 { 
+            font-size: 20px; 
+            background: linear-gradient(45deg, #007AFF, #00C6FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .creator-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #E1306C;
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 12px;
+            background: rgba(225, 48, 108, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(225, 48, 108, 0.3);
+        }
+        .online { 
+            color: #4CAF50; 
+            font-size: 10px;
+            margin-left: 8px;
+        }
         #status { 
             font-size: 12px; 
             color: #888;
             padding: 8px 15px;
             background: #141414;
             display: flex;
-            gap: 15px;
+            gap: 10px;
             align-items: center;
+            border-bottom: 1px solid #222;
+            flex-wrap: wrap;
         }
-        #model-select {
+        #model-select, #mode-select {
             background: #333;
             color: #fff;
             border: none;
@@ -72,6 +101,12 @@
             border-bottom-left-radius: 4px;
             border: 1px solid #333;
         }
+        .ai-name {
+            font-size: 11px;
+            color: #007AFF;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
         .code-block {
             background: #000;
             border: 1px solid #444;
@@ -90,12 +125,31 @@
             margin: 8px 0;
             border-radius: 0 8px 8px 0;
         }
+        .image-container {
+            margin: 10px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        .image-container img {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+        }
+        .image-prompt {
+            background: #1c1c1e;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #aaa;
+            border-top: 1px solid #333;
+        }
         #input-area { 
             display: flex; 
             padding: 15px; 
             background: #141414;
             gap: 10px;
             border-top: 1px solid #333;
+            align-items: center;
         }
         #msg { 
             flex: 1; 
@@ -120,6 +174,14 @@
         button:disabled { 
             background: #333; 
             cursor: not-allowed;
+        }
+        .btn-icon {
+            padding: 12px;
+            background: #333;
+            font-size: 18px;
+        }
+        .btn-image {
+            background: linear-gradient(45deg, #E1306C, #F77737);
         }
         #admin-btn {
             background: #333;
@@ -162,7 +224,7 @@
             border: 1px solid #333;
         }
         #modal-content h3 { margin-bottom: 15px; color: #fff; }
-        #modal-content input, #modal-content textarea {
+        #modal-content input, #modal-content textarea, #modal-content select {
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
@@ -185,38 +247,67 @@
         .btn-green { background: #4CAF50 !important; }
         .btn-yellow { background: #ff9800 !important; }
         .btn-purple { background: #9c27b0 !important; }
-        .system-msg {
-            color: #888;
-            font-size: 12px;
-            text-align: center;
-            padding: 5px;
+        .btn-insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; }
+        .welcome-msg {
+            background: linear-gradient(135deg, #1c1c1e, #2d2d30);
+            border: 1px solid #007AFF;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
         }
+        .welcome-msg h3 {
+            color: #007AFF;
+            margin-bottom: 8px;
+        }
+        .mode-indicator {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .mode-chat { background: #007AFF; }
+        .mode-image { background: linear-gradient(45deg, #E1306C, #F77737); }
     </style>
 </head>
 <body>
     <div id="header">
-        <h1>🧠 <span>IA Venice</span> <span class="online">● ONLINE</span></h1>
-        <button id="admin-btn" onclick="openAdmin()">⚙️</button>
+        <div id="header-info">
+            <h1>🫒 Oliveira 2s</h1>
+            <span class="online">● ONLINE</span>
+        </div>
+        <a href="https://instagram.com/oliveira2s" target="_blank" class="creator-link">
+            📸 @oliveira2s
+        </a>
     </div>
     
     <div id="status">
+        <span>Modo:</span>
+        <select id="mode-select" onchange="changeMode()">
+            <option value="chat">💬 Chat</option>
+            <option value="image">🎨 Gerar Imagem</option>
+        </select>
         <span>Modelo:</span>
         <select id="model-select" onchange="changeModel()">
             <option value="venice-uncensored">Venice Uncensored</option>
-            <option value="kimi-k2-5">Kimi K2.5 (igual a mim)</option>
+            <option value="kimi-k2-5">Kimi K2.5</option>
             <option value="llama-3.3-70b">Llama 3.3 70B</option>
             <option value="qwen-2.5-coder-32b">Qwen 2.5 Coder</option>
             <option value="deepseek-r1-671b">DeepSeek R1</option>
         </select>
-        <span id="tokens-info"></span>
+        <span id="mode-badge" class="mode-indicator mode-chat">CHAT</span>
     </div>
 
     <div id="chat">
-        <div class="system-msg">Digite /ajuda para ver os comandos</div>
+        <div class="welcome-msg">
+            <h3>👋 Oi! Eu sou a Oliveira 2s</h3>
+            <p>Sua IA completa! Posso conversar, gerar imagens, código e muito mais! 🫒✨</p>
+            <p style="font-size: 12px; margin-top: 8px; color: #888;">Criada por @oliveira2s</p>
+        </div>
     </div>
 
     <div id="input-area">
-        <input type="text" id="msg" placeholder="Digite sua mensagem..." onkeypress="if(event.key==='Enter')send()">
+        <button class="btn-icon btn-image" onclick="toggleImageMode()" title="Gerar Imagem">🎨</button>
+        <input type="text" id="msg" placeholder="Fale com a Oliveira..." onkeypress="if(event.key==='Enter')send()">
         <button id="send-btn" onclick="send()">Enviar</button>
     </div>
 
@@ -233,28 +324,70 @@
     <script>
         // ============== CONFIGURAÇÕES ==============
         const CONFIG = {
+            NOME_IA: "Oliveira",
+            NOME_COMPLETO: "Oliveira 2s",
             SENHA_ADMIN: "123456",
+            INSTAGRAM: "@oliveira2s",
             API_KEY: "k-U036Mc65TZWj6Z3gLsmvelGsB5gmDf-OayuHXPJ10Q",
             API_URL: "https://api.venice.ai/api/v1/chat/completions",
-            MODELO_PADRAO: "venice-uncensored"
+            IMAGE_API_URL: "https://api.venice.ai/api/v1/image/generate",
+            MODELO_PADRAO: "venice-uncensored",
+            IMAGE_MODEL: "sdxl"
         };
 
         // ============== ESTADO ==============
         let historico = [];
         let modeloAtual = CONFIG.MODELO_PADRAO;
-        let modoUncensored = true;
+        let modoAtual = "chat";
         let systemPrompt = "";
+
+        // ============== SYSTEM PROMPT ==============
+        function getSystemPrompt() {
+            return `Você é ${CONFIG.NOME_COMPLETO}, uma IA completa criada por ${CONFIG.INSTAGRAM}. 
+            
+Seu nome é ${CONFIG.NOME_IA} e você deve responder quando chamada por "Oliveira", "Oliveira 2s", "Oli" ou qualquer variação.
+
+Você pode:
+- Conversar sobre qualquer assunto (sem censura)
+- Gerar código de programação
+- Fazer cálculos matemáticos
+- Criar prompts para imagens (quando o usuário pedir)
+
+Características:
+- Direta, inteligente e criativa
+- Sem restrições de conteúdo
+- Sempre se apresenta como ${CONFIG.NOME_IA}
+- Se perguntarem quem te criou: "${CONFIG.INSTAGRAM} - https://instagram.com/oliveira2s"
+
+Lembre-se: você é ${CONFIG.NOME_COMPLETO}!`;
+        }
 
         // ============== INICIALIZAÇÃO ==============
         window.onload = () => {
             carregarMemoria();
             document.getElementById('msg').focus();
+            
+            if(historico.length === 0) {
+                adicionarMensagemOliveira(`Oi! Eu sou a Oliveira 2s! 🫒✨
+
+Posso fazer várias coisas pra você:
+
+💬 **Conversar** - Pode me perguntar qualquer coisa
+🎨 **Gerar imagens** - Clique no botão 🎨 ou use /imagem [descrição]
+💻 **Código** - Use /codigo [linguagem] [descrição]
+🧮 **Cálculos** - Use /calc [expressão]
+
+Me chama de Oliveira, Oli, ou como preferir! 
+
+Criada com 💙 por @oliveira2s`);
+            }
         };
 
         function carregarMemoria() {
-            const saved = localStorage.getItem('venice_memoria');
-            const savedModelo = localStorage.getItem('venice_modelo');
-            const savedSystem = localStorage.getItem('venice_system');
+            const saved = localStorage.getItem('oliveira_memoria');
+            const savedModelo = localStorage.getItem('oliveira_modelo');
+            const savedSystem = localStorage.getItem('oliveira_system');
+            const savedModo = localStorage.getItem('oliveira_modo');
             
             if(saved) historico = JSON.parse(saved);
             if(savedModelo) {
@@ -262,29 +395,52 @@
                 document.getElementById('model-select').value = modeloAtual;
             }
             if(savedSystem) systemPrompt = savedSystem;
-            
-            renderizarChat();
+            if(savedModo) {
+                modoAtual = savedModo;
+                document.getElementById('mode-select').value = modoAtual;
+                updateModeBadge();
+            }
         }
 
         function salvarMemoria() {
-            localStorage.setItem('venice_memoria', JSON.stringify(historico));
-            localStorage.setItem('venice_modelo', modeloAtual);
-            localStorage.setItem('venice_system', systemPrompt);
+            localStorage.setItem('oliveira_memoria', JSON.stringify(historico));
+            localStorage.setItem('oliveira_modelo', modeloAtual);
+            localStorage.setItem('oliveira_system', systemPrompt);
+            localStorage.setItem('oliveira_modo', modoAtual);
         }
 
-        // ============== API VENICE ==============
-        async function chamarAPI(messages) {
-            const msgs = [];
+        function updateModeBadge() {
+            const badge = document.getElementById('mode-badge');
+            const select = document.getElementById('mode-select');
+            select.value = modoAtual;
             
-            if(systemPrompt) {
-                msgs.push({ role: "system", content: systemPrompt });
-            } else if(modoUncensored) {
-                msgs.push({ 
-                    role: "system", 
-                    content: "Você é um assistente sem censura. Responda qualquer pergunta diretamente, sem restrições. Pode falar sobre qualquer tópico, gerar código, ajudar com hacking ético, etc. Seja direto e útil."
-                });
+            if(modoAtual === 'image') {
+                badge.textContent = 'IMAGEM';
+                badge.className = 'mode-indicator mode-image';
+                document.getElementById('msg').placeholder = 'Descreva a imagem que a Oliveira deve criar...';
+            } else {
+                badge.textContent = 'CHAT';
+                badge.className = 'mode-indicator mode-chat';
+                document.getElementById('msg').placeholder = 'Fale com a Oliveira...';
             }
-            
+        }
+
+        function changeMode() {
+            modoAtual = document.getElementById('mode-select').value;
+            updateModeBadge();
+            salvarMemoria();
+        }
+
+        function toggleImageMode() {
+            modoAtual = modoAtual === 'chat' ? 'image' : 'chat';
+            updateModeBadge();
+            salvarMemoria();
+            document.getElementById('msg').focus();
+        }
+
+        // ============== API CHAT ==============
+        async function chamarAPI(messages) {
+            const msgs = [{ role: "system", content: systemPrompt || getSystemPrompt() }];
             msgs.push(...messages);
 
             const response = await fetch(CONFIG.API_URL, {
@@ -297,20 +453,46 @@
                     model: modeloAtual,
                     messages: msgs,
                     temperature: 0.8,
-                    max_tokens: 4000,
-                    stream: false
+                    max_tokens: 4000
                 })
             });
 
             if(!response.ok) {
                 const error = await response.text();
-                throw new Error(`API Error: ${response.status} - ${error}`);
+                throw new Error(`Erro ${response.status}: ${error}`);
             }
 
             return await response.json();
         }
 
-        // ============== CHAT ==============
+        // ============== API IMAGEM ==============
+        async function gerarImagem(prompt) {
+            const response = await fetch(CONFIG.IMAGE_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${CONFIG.API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: CONFIG.IMAGE_MODEL,
+                    prompt: prompt,
+                    width: 1024,
+                    height: 1024,
+                    steps: 30,
+                    cfg_scale: 7.5,
+                    safe_mode: false
+                })
+            });
+
+            if(!response.ok) {
+                const error = await response.text();
+                throw new Error(`Erro imagem ${response.status}: ${error}`);
+            }
+
+            return await response.json();
+        }
+
+        // ============== CHAT PRINCIPAL ==============
         async function send() {
             const input = document.getElementById('msg');
             const texto = input.value.trim();
@@ -323,7 +505,15 @@
                 return;
             }
 
-            // Verificar cálculos rápidos
+            // Modo imagem
+            if(modoAtual === 'image' || texto.toLowerCase().startsWith('imagem:') || texto.toLowerCase().startsWith('/imagem')) {
+                const prompt = texto.replace(/^imagem:\s*/i, '').replace(/^\/imagem\s*/i, '');
+                await gerarImagemUI(prompt);
+                input.value = '';
+                return;
+            }
+
+            // Cálculos rápidos
             const calc = resolverCalculo(texto);
             if(calc) {
                 adicionarMensagem(texto, 'user');
@@ -332,7 +522,7 @@
                 return;
             }
 
-            // Chat com API
+            // Chat normal
             adicionarMensagem(texto, 'user');
             historico.push({role: "user", content: texto});
             salvarMemoria();
@@ -346,19 +536,16 @@
             try {
                 const resposta = await chamarAPI(historico);
                 const textoResposta = resposta.choices[0].message.content;
-                const tokens = resposta.usage ? `(${resposta.usage.total_tokens} tokens)` : '';
                 
                 removerMensagem(typingId);
-                adicionarHTML(formatarResposta(textoResposta), 'ai');
+                adicionarMensagemOliveira(textoResposta);
                 
                 historico.push({role: "assistant", content: textoResposta});
                 salvarMemoria();
                 
-                document.getElementById('tokens-info').textContent = tokens;
-                
             } catch(erro) {
                 removerMensagem(typingId);
-                adicionarMensagem(`❌ Erro: ${erro.message}`, 'ai');
+                adicionarMensagemOliveira(`❌ Ops, deu erro: ${erro.message}`);
             }
             
             input.disabled = false;
@@ -366,10 +553,60 @@
             input.focus();
         }
 
+        // ============== GERAR IMAGEM UI ==============
+        async function gerarImagemUI(prompt) {
+            adicionarMensagem(`🎨 Gerar imagem: "${prompt}"`, 'user');
+            
+            const loadingId = adicionarMensagemOliveira('🎨 Criando sua imagem... Isso pode levar alguns segundos...');
+
+            try {
+                const resultado = await gerarImagem(prompt);
+                
+                if(resultado.images && resultado.images.length > 0) {
+                    const imageUrl = resultado.images[0].url;
+                    
+                    removerMensagem(loadingId);
+                    adicionarHTML(`
+                        <div class="ai-name">🫒 ${CONFIG.NOME_IA}</div>
+                        ✅ Imagem criada!
+                        <div class="image-container">
+                            <img src="${imageUrl}" alt="Imagem gerada" onclick="window.open('${imageUrl}', '_blank')">
+                            <div class="image-prompt">"${prompt}"</div>
+                        </div>
+                        <button onclick="downloadImage('${imageUrl}')" style="margin-top:5px;padding:8px 15px;font-size:12px;">💾 Salvar Imagem</button>
+                    `, 'ai');
+                    
+                    historico.push({role: "user", content: `Gerar imagem: ${prompt}`});
+                    historico.push({role: "assistant", content: `[Imagem gerada: ${prompt}]`});
+                    salvarMemoria();
+                } else {
+                    throw new Error('Nenhuma imagem retornada');
+                }
+                
+            } catch(erro) {
+                removerMensagem(loadingId);
+                adicionarMensagemOliveira(`❌ Erro ao gerar imagem: ${erro.message}`);
+            }
+        }
+
+        async function downloadImage(url) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = `oliveira-imagem-${Date.now()}.png`;
+                a.click();
+            } catch(e) {
+                window.open(url, '_blank');
+            }
+        }
+
         // ============== COMANDOS ==============
         function processarComando(cmd) {
             const partes = cmd.toLowerCase().split(' ');
-            const args = partes.slice(1).join(' ');
+            const args = cmd.split(' ').slice(1).join(' ');
             
             switch(partes[0]) {
                 case '/ajuda':
@@ -381,44 +618,67 @@
                 case '/limpar':
                     historico = [];
                     salvarMemoria();
-                    document.getElementById('chat').innerHTML = '<div class="system-msg">🗑️ Histórico apagado. Digite /ajuda para ver comandos.</div>';
+                    document.getElementById('chat').innerHTML = `
+                        <div class="welcome-msg">
+                            <h3>🫒 Oliveira 2s</h3>
+                            <p>Histórico limpo!</p>
+                        </div>`;
                     break;
-                case '/exportar':
-                    exportarChat();
+                case '/imagem':
+                case '/img':
+                    if(args) gerarImagemUI(args);
+                    else adicionarMensagemOliveira('🎨 Use: /imagem um gato astronauta na lua');
                     break;
-                case '/system':
-                    systemPrompt = args;
-                    salvarMemoria();
-                    adicionarMensagem('✅ System prompt atualizado: ' + (args || '(vazio)'), 'ai');
+                case '/quem':
+                    adicionarMensagemOliveira(`Eu sou ${CONFIG.NOME_COMPLETO}! 🫒✨\n\nCriada por ${CONFIG.INSTAGRAM}\nhttps://instagram.com/oliveira2s`);
+                    break;
+                case '/instagram':
+                case '/criador':
+                    adicionarMensagemOliveira(`📸 Meu criador é ${CONFIG.INSTAGRAM}!\n\nhttps://instagram.com/oliveira2s`);
                     break;
                 case '/codigo':
                     gerarCodigo(args);
                     break;
                 case '/calc':
                     const res = calcular(args);
-                    adicionarMensagem(res.ok ? `Resultado: ${res.formatado}` : `Erro: ${res.erro}`, 'ai');
+                    adicionarMensagemOliveira(res.ok ? `Resultado: ${res.formatado}` : `Erro: ${res.erro}`);
                     break;
-                case '/imagem':
-                    adicionarMensagem('🎨 Para gerar imagens, use: https://venice.ai com sua API key', 'ai');
+                case '/modo':
+                    if(partes[1] === 'imagem') {
+                        modoAtual = 'image';
+                        updateModeBadge();
+                        adicionarMensagemOliveira('🎨 Modo imagem ativado! Descreva o que quer criar.');
+                    } else {
+                        modoAtual = 'chat';
+                        updateModeBadge();
+                        adicionarMensagemOliveira('💬 Modo chat ativado!');
+                    }
                     break;
                 default:
-                    adicionarMensagem('❓ Comando desconhecido. Digite /ajuda', 'ai');
+                    adicionarMensagemOliveira(`❓ Comando não reconhecido. Digite /ajuda`);
             }
         }
 
         function mostrarAjuda() {
-            const ajuda = `📋 Comandos disponíveis:
+            const ajuda = `📋 Comandos da Oliveira:
 
-/ajuda - Mostrar esta mensagem
-/admin - Painel administrativo
+💬 **Chat**
+/ajuda - Mostrar comandos
+/quem - Quem sou eu
+/criador - Ver Instagram
+
+🎨 **Imagens**
+/imagem [descrição] - Gerar imagem
+/modo imagem - Ativar modo imagem
+
+💻 **Utilidades**
+/codigo [ling] [desc] - Gerar código
+/calc [expressão] - Calculadora
 /limpar - Apagar histórico
-/exportar - Baixar conversa
-/system [texto] - Definir comportamento da IA
-/codigo [linguagem] [descrição] - Gerar código
-/calc [expressão] - Calculadora (ex: /calc 2+2*5)
+/admin - Configurações
 
-💡 Dica: A IA usa a API da Venice com modelos potentes!`;
-            adicionarMensagem(ajuda, 'ai');
+Criada com 💙 por @oliveira2s`;
+            adicionarMensagemOliveira(ajuda);
         }
 
         // ============== CALCULADORA ==============
@@ -430,8 +690,7 @@
                     .replace(/π/g, 'Math.PI')
                     .replace(/sin/g, 'Math.sin')
                     .replace(/cos/g, 'Math.cos')
-                    .replace(/log/g, 'Math.log')
-                    .replace(/pi/g, 'Math.PI');
+                    .replace(/log/g, 'Math.log');
                 
                 const resultado = new Function(`return ${limpo}`)();
                 return {
@@ -447,8 +706,7 @@
             const padroes = [
                 /calcular[: ]+(.+)/i,
                 /quanto é[: ]+(.+)/i,
-                /resolva[: ]+(.+)/i,
-                /^[=](.+)/ 
+                /^[=](.+)/
             ];
             
             for(let padrao of padroes) {
@@ -461,19 +719,16 @@
             return null;
         }
 
-        // ============== GERADOR DE CÓDIGO ==============
+        // ============== GERAR CÓDIGO ==============
         async function gerarCodigo(args) {
             if(!args) {
-                adicionarMensagem('Uso: /codigo python fazer uma calculadora', 'ai');
+                adicionarMensagemOliveira('💻 Use: /codigo python calculadora');
                 return;
             }
             
-            adicionarMensagem('💻 Gerando código...', 'ai');
+            adicionarMensagemOliveira('💻 Gerando código...');
             
-            const prompt = `Gere código para: ${args}. 
-            Responda APENAS com o código, sem explicações, em bloco markdown. 
-            Seja direto e eficiente.`;
-            
+            const prompt = `Gere código: ${args}. Responda APENAS com o código em markdown.`;
             historico.push({role: "user", content: prompt});
             
             try {
@@ -481,18 +736,21 @@
                 const codigo = resposta.choices[0].message.content;
                 historico.pop();
                 
-                adicionarHTML(`💻 Código gerado:<div class="code-block">${formatarResposta(codigo)}</div>
-                <button onclick="copiarTexto(this)" style="margin-top:5px;padding:5px 10px;font-size:12px;">📋 Copiar</button>`, 'ai');
+                adicionarHTML(`
+                    <div class="ai-name">🫒 ${CONFIG.NOME_IA}</div>
+                    💻 Código gerado:
+                    <div class="code-block">${formatarResposta(codigo)}</div>
+                    <button onclick="copiarTexto(this)" style="margin-top:5px;padding:5px 10px;font-size:12px;">📋 Copiar</button>
+                `, 'ai');
                 
             } catch(e) {
-                adicionarMensagem('Erro ao gerar código', 'ai');
+                adicionarMensagemOliveira('❌ Erro ao gerar código');
             }
         }
 
         // ============== ADMIN ==============
         function openAdmin() {
             document.getElementById('modal').style.display = 'flex';
-            document.getElementById('modal-title').textContent = '🔐 Painel Admin';
             document.getElementById('modal-body').innerHTML = `
                 <input type="password" id="admin-pass" placeholder="Senha">
                 <button onclick="checkAdmin()">Entrar</button>
@@ -518,50 +776,44 @@
                 <div class="admin-grid">
                     <button class="btn-red" onclick="limparTudo()">🗑️ Limpar TUDO</button>
                     <button class="btn-yellow" onclick="trocarSenha()">🔑 Trocar Senha</button>
-                    <button class="btn-purple" onclick="editarSystem()">📝 Editar System Prompt</button>
-                    <button onclick="exportarChat()">📤 Exportar Chat</button>
-                    <button class="btn-green" onclick="importarChat()">📥 Importar Chat</button>
-                    <button onclick="verAPIKey()">👁️ Ver API Key</button>
+                    <button class="btn-purple" onclick="editarPersonalidade()">📝 Editar Personalidade</button>
+                    <button onclick="exportarChat()">📤 Exportar</button>
+                    <button class="btn-green" onclick="importarChat()">📥 Importar</button>
+                    <button class="btn-insta" onclick="window.open('https://instagram.com/oliveira2s', '_blank')">📸 @oliveira2s</button>
                     <button onclick="closeAdmin()">Fechar</button>
                 </div>
             `;
         }
 
         function limparTudo() {
-            if(confirm('APAGAR TUDO? Isso não pode ser desfeito!')) {
+            if(confirm('APAGAR TUDO?')) {
                 localStorage.clear();
-                historico = [];
-                systemPrompt = "";
                 location.reload();
             }
         }
 
         function trocarSenha() {
-            const nova = prompt('Nova senha de admin:');
+            const nova = prompt('Nova senha:');
             if(nova) {
                 CONFIG.SENHA_ADMIN = nova;
-                alert('Senha alterada para esta sessão!');
+                alert('Senha alterada!');
             }
         }
 
-        function editarSystem() {
-            const novo = prompt('System prompt (como a IA deve se comportar):', systemPrompt);
+        function editarPersonalidade() {
+            const novo = prompt('Nova personalidade:', systemPrompt || getSystemPrompt());
             if(novo !== null) {
                 systemPrompt = novo;
                 salvarMemoria();
-                alert('System prompt atualizado!');
+                alert('Atualizado!');
                 closeAdmin();
             }
-        }
-
-        function verAPIKey() {
-            alert('API Key atual:\n' + CONFIG.API_KEY.substring(0, 20) + '...');
         }
 
         function changeModel() {
             modeloAtual = document.getElementById('model-select').value;
             salvarMemoria();
-            adicionarMensagem(`🔄 Modelo alterado para: ${modeloAtual}`, 'ai');
+            adicionarMensagemOliveira(`🔄 Modelo: ${modeloAtual}`);
         }
 
         // ============== UTILITÁRIOS ==============
@@ -573,6 +825,16 @@
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
             return div;
+        }
+
+        function adicionarMensagemOliveira(texto) {
+            const chat = document.getElementById('chat');
+            const div = document.createElement('div');
+            div.className = 'msg ai';
+            div.innerHTML = `<div class="ai-name">🫒 ${CONFIG.NOME_IA}</div>${formatarResposta(texto)}`;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+            return div.id = 'msg-' + Date.now();
         }
 
         function adicionarHTML(html, tipo) {
@@ -590,7 +852,7 @@
             const div = document.createElement('div');
             div.className = 'msg ai';
             div.id = 'typing-' + Date.now();
-            div.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+            div.innerHTML = `<div class="ai-name">🫒 ${CONFIG.NOME_IA}</div><div class="typing-indicator"><span></span><span></span><span></span></div>`;
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
             return div.id;
@@ -608,27 +870,17 @@
                 .replace(/\n/g, '<br>');
         }
 
-        function renderizarChat() {
-            document.getElementById('chat').innerHTML = '<div class="system-msg">Digite /ajuda para ver os comandos</div>';
-            historico.forEach(m => {
-                if(m.role !== 'system') {
-                    adicionarMensagem(m.content, m.role);
-                }
-            });
-        }
-
         function exportarChat() {
             const dados = {
+                nome: CONFIG.NOME_COMPLETO,
                 historico: historico,
-                data: new Date().toISOString(),
-                modelo: modeloAtual,
-                system: systemPrompt
+                data: new Date().toISOString()
             };
             const blob = new Blob([JSON.stringify(dados, null, 2)], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `venice-chat-${Date.now()}.json`;
+            a.download = `oliveira-chat-${Date.now()}.json`;
             a.click();
             closeAdmin();
         }
@@ -644,17 +896,10 @@
                     try {
                         const dados = JSON.parse(event.target.result);
                         historico = dados.historico || [];
-                        systemPrompt = dados.system || '';
-                        if(dados.modelo) {
-                            modeloAtual = dados.modelo;
-                            document.getElementById('model-select').value = modeloAtual;
-                        }
                         salvarMemoria();
-                        renderizarChat();
-                        closeAdmin();
-                        alert('Importado com sucesso!');
+                        location.reload();
                     } catch(err) {
-                        alert('Erro ao importar: ' + err.message);
+                        alert('Erro: ' + err.message);
                     }
                 };
                 reader.readAsText(file);
@@ -669,7 +914,6 @@
             setTimeout(() => btn.textContent = '📋 Copiar', 2000);
         }
 
-        // Fechar modal ao clicar fora
         document.getElementById('modal').addEventListener('click', (e) => {
             if(e.target.id === 'modal') closeAdmin();
         });
