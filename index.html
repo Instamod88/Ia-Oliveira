@@ -3,230 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oliveira 2s Pro</title>
+    <title>Oliveira 2s - Login</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;height:100vh;display:flex;flex-direction:column}
+        body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;height:100vh;display:flex;align-items:center;justify-content:center}
+        .login-box{background:#141414;padding:40px;border-radius:20px;border:1px solid #333;width:90%;max-width:400px;text-align:center}
+        .login-box h1{font-size:28px;margin-bottom:10px;background:linear-gradient(45deg,#10a37f,#00d084);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .login-box p{color:#888;margin-bottom:30px;font-size:14px}
+        input{width:100%;padding:15px;margin-bottom:15px;border:1px solid #333;border-radius:10px;background:#1c1c1e;color:#fff;font-size:14px;outline:none}
+        input:focus{border-color:#10a37f}
+        button{width:100%;padding:15px;background:#10a37f;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s}
+        button:hover{background:#00d084}
+        .help{margin-top:20px;font-size:12px;color:#666}
+        .help a{color:#10a37f;text-decoration:none}
+        .hidden{display:none}
+        
+        /* Chat styles */
+        #app{height:100vh;display:flex;flex-direction:column;width:100%}
         #header{padding:15px;background:#141414;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center}
         #header h1{font-size:20px;background:linear-gradient(45deg,#10a37f,#00d084);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        #status{padding:8px 15px;background:#141414;border-bottom:1px solid #222;font-size:12px;color:#888}
         #chat{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:12px}
         .msg{max-width:90%;padding:12px 16px;border-radius:18px;line-height:1.5;animation:fadeIn 0.3s}
         @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
         .user{background:linear-gradient(135deg,#10a37f,#00a67e);align-self:flex-end;border-bottom-right-radius:4px}
         .ai{background:#1c1c1e;align-self:flex-start;border-bottom-left-radius:4px;border:1px solid #333}
         .ai-name{font-size:11px;color:#10a37f;font-weight:bold;margin-bottom:4px}
-        .code-block{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:12px;margin:8px 0;font-family:monospace;font-size:13px;overflow-x:auto}
-        .calc-box{background:linear-gradient(135deg,rgba(16,163,127,0.1),rgba(16,163,127,0.05));border-left:3px solid #10a37f;padding:10px;margin:8px 0;border-radius:0 8px 8px 0}
+        .code-block{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:12px;margin:8px 0;font-family:monospace;font-size:13px;overflow-x:auto;white-space:pre-wrap}
         #input-area{display:flex;padding:15px;background:#141414;gap:10px;border-top:1px solid #333}
         #msg{flex:1;padding:12px 16px;border:none;border-radius:20px;background:#1c1c1e;color:#fff;font-size:16px;outline:none}
-        button{padding:12px 20px;background:#10a37f;color:#fff;border:none;border-radius:20px;font-weight:600;cursor:pointer}
         button:disabled{background:#333;cursor:not-allowed}
         .typing{display:flex;gap:4px;padding:4px 0}
         .typing span{width:8px;height:8px;background:#666;border-radius:50%;animation:bounce 1.4s infinite}
         @keyframes bounce{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
-        .warning{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);padding:12px;border-radius:8px;margin:10px 0;font-size:13px;color:#f59e0b}
+        .logout-btn{background:#333;padding:8px 15px;font-size:12px;border-radius:8px;cursor:pointer}
     </style>
 </head>
 <body>
+
+<!-- TELA DE LOGIN -->
+<div id="login-screen" class="login-box">
+    <h1>🫒 Oliveira 2s</h1>
+    <p>Insira sua API Key da OpenAI</p>
+    <input type="password" id="api-key-input" placeholder="sk-...">
+    <button onclick="saveKey()">Entrar</button>
+    <div class="help">
+        <p>Não tem uma key?</p>
+        <p><a href="https://platform.openai.com/api-keys" target="_blank">Criar API Key</a></p>
+        <p style="margin-top:10px;color:#888">A key fica salva apenas no seu navegador</p>
+    </div>
+</div>
+
+<!-- APP PRINCIPAL -->
+<div id="app" class="hidden">
     <div id="header">
         <h1>🫒 Oliveira 2s</h1>
-        <span style="color:#10a37f;font-size:12px">● GPT-4 Ativo</span>
-    </div>
-    <div id="status">
-        <span>Modelo: GPT-4</span> | 
-        <span id="api-status">Conectando...</span>
+        <button class="logout-btn" onclick="logout()">Sair</button>
     </div>
     <div id="chat">
         <div class="msg ai">
             <div class="ai-name">🫒 Oliveira 2s</div>
-            👋 Olá! Agora estou com <b>GPT-4</b>! Posso responder qualquer coisa, criar códigos, fazer cálculos e muito mais.
+            👋 Conectada! Agora com <b>GPT-4</b>. Posso responder qualquer coisa!
         </div>
     </div>
     <div id="input-area">
         <input type="text" id="msg" placeholder="Digite sua mensagem..." onkeypress="if(event.key==='Enter')send()">
         <button id="send-btn" onclick="send()">Enviar</button>
     </div>
+</div>
 
-    <script>
-        // ==========================================
-        // CONFIGURAÇÃO - NOVA API KEY (OFUSCADA)
-        // ==========================================
-        const CONFIG = {
-            // NOVA KEY - NÃO COMPARTILHE
-            _k: "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",
-            _u: "https://api.openai.com/v1/chat/completions",
-            NOME: "Oliveira 2s",
-            CRIADOR: "@oliveira2s"
-        };
+<script>
+    // CONFIGURAÇÃO
+    const CONFIG = {
+        API_URL: "https://api.openai.com/v1/chat/completions",
+        NOME: "Oliveira 2s"
+    };
 
-        // Recuperar key (ofuscação básica)
-        const API_KEY = CONFIG._k;
-        const API_URL = CONFIG._u;
+    let API_KEY = localStorage.getItem('oliveira_api_key') || '';
+    let historico = [];
 
-        let historico = [];
-        let modoFallback = false;
+    // Verifica se já tem key salva
+    if (API_KEY) {
+        showApp();
+    }
 
-        // ==========================================
-        // SISTEMA DE RESPOSTAS INTELIGENTE (FALLBACK)
-        // ==========================================
-        const RESPOSTAS_VENICE = {
-            "oi|olá|eae": `Oi! 👋 Sou a ${CONFIG.NOME}!
-
-Estou aqui para ajudar com:
-• Respostas inteligentes
-• Códigos de programação  
-• Cálculos matemáticos
-• Criatividade e ideias
-
-Como posso te ajudar hoje?`,
-
-            "quem é você|quem vc|vc é quem": `Sou ${CONFIG.NOME}! 🫒✨
-
-Uma IA avançada criada por ${CONFIG.CRIADOR} usando tecnologia GPT-4.
-
-Posso:
-• Conversar sobre qualquer assunto
-• Gerar códigos em qualquer linguagem
-• Resolver problemas matemáticos
-• Criar conteúdo criativo
-• E muito mais!
-
-Criada com 💙 por ${CONFIG.CRIADOR}`,
-
-            "instagram|criador|quem te criou": `Meu criador é ${CONFIG.CRIADOR}!
-
-📸 https://instagram.com/oliveira2s
-
-Siga lá para mais projetos incríveis! 🔥`,
-
-            "ajuda|help|comandos": `📋 **Comandos disponíveis:**
-
-**Geral:**
-• Faça qualquer pergunta
-• Peça códigos de programação
-• Solicite cálculos matemáticos
-
-**Atalhos:**
-/calc [expressão] - Calculadora
-/limpar - Limpar conversa
-
-**Exemplos:**
-• "Explique física quântica"
-• "Crie um jogo da velha em JS"
-• "Calcule √144 × π"
-
-Estou pronta! 🚀`,
-
-            "default": null // Usa processamento inteligente
-        };
-
-        // ==========================================
-        // INICIALIZAÇÃO
-        // ==========================================
-        window.onload = () => {
-            verificarConexao();
-            document.getElementById('msg').focus();
-        };
-
-        async function verificarConexao() {
-            try {
-                const teste = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${API_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        messages: [{role: "user", content: "oi"}],
-                        max_tokens: 5
-                    })
-                });
-                
-                if (teste.ok) {
-                    document.getElementById('api-status').textContent = '✅ Online';
-                    document.getElementById('api-status').style.color = '#10a37f';
-                } else {
-                    throw new Error('API indisponível');
-                }
-            } catch (e) {
-                modoFallback = true;
-                document.getElementById('api-status').textContent = '⚠️ Modo Offline';
-                document.getElementById('api-status').style.color = '#f59e0b';
-            }
+    function saveKey() {
+        const key = document.getElementById('api-key-input').value.trim();
+        if (!key || !key.startsWith('sk-')) {
+            alert('API Key inválida! Deve começar com sk-');
+            return;
         }
+        
+        API_KEY = key;
+        localStorage.setItem('oliveira_api_key', key);
+        showApp();
+    }
 
-        // ==========================================
-        // ENVIO PRINCIPAL
-        // ==========================================
-        async function send() {
-            const input = document.getElementById('msg');
-            const texto = input.value.trim();
-            if (!texto) return;
+    function showApp() {
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('app').classList.remove('hidden');
+        document.getElementById('msg').focus();
+    }
 
-            // Comandos especiais
-            if (texto.startsWith('/')) {
-                processarComando(texto);
-                input.value = '';
-                return;
-            }
+    function logout() {
+        localStorage.removeItem('oliveira_api_key');
+        location.reload();
+    }
 
-            // Cálculo rápido
-            const calc = resolverCalculo(texto);
-            if (calc) {
-                addMsg(texto, 'user');
-                addCalc(calc.expr, calc.result);
-                input.value = '';
-                return;
-            }
+    async function send() {
+        const input = document.getElementById('msg');
+        const texto = input.value.trim();
+        if (!texto) return;
 
-            // Adiciona mensagem usuário
+        // Cálculo rápido
+        const calc = calcular(texto);
+        if (calc) {
             addMsg(texto, 'user');
-            historico.push({role: "user", content: texto});
-            
+            addCalc(calc.expr, calc.res);
             input.value = '';
-            input.disabled = true;
-            document.getElementById('send-btn').disabled = true;
-
-            // Indicador de digitação
-            const typingId = addTyping();
-
-            try {
-                let resposta;
-
-                // Tenta API primeiro
-                if (!modoFallback) {
-                    try {
-                        resposta = await chamarAPI();
-                    } catch (e) {
-                        modoFallback = true;
-                        resposta = await gerarRespostaInteligente(texto);
-                    }
-                } else {
-                    // Modo offline inteligente
-                    resposta = await gerarRespostaInteligente(texto);
-                }
-
-                removeTyping(typingId);
-                addMsg(resposta, 'ai');
-                historico.push({role: "assistant", content: resposta});
-
-            } catch (erro) {
-                removeTyping(typingId);
-                addMsg(`❌ Erro: ${erro.message}`, 'ai');
-            }
-
-            input.disabled = false;
-            document.getElementById('send-btn').disabled = false;
-            input.focus();
+            return;
         }
 
-        // ==========================================
-        // API OPENAI
-        // ==========================================
-        async function chamarAPI() {
-            const response = await fetch(API_URL, {
+        addMsg(texto, 'user');
+        historico.push({role: "user", content: texto});
+        
+        input.value = '';
+        input.disabled = true;
+        document.getElementById('send-btn').disabled = true;
+
+        const typing = addTyping();
+
+        try {
+            const resposta = await fetch(CONFIG.API_URL, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${API_KEY}`,
@@ -235,7 +142,7 @@ Estou pronta! 🚀`,
                 body: JSON.stringify({
                     model: "gpt-4",
                     messages: [
-                        {role: "system", content: `Você é ${CONFIG.NOME}, uma IA criada por ${CONFIG.CRIADOR}. Seja direta, completa e natural nas respostas.`},
+                        {role: "system", content: `Você é ${CONFIG.NOME}, uma IA inteligente. Seja direta e completa.`},
                         ...historico.slice(-10)
                     ],
                     temperature: 0.8,
@@ -243,197 +150,79 @@ Estou pronta! 🚀`,
                 })
             });
 
-            if (!response.ok) throw new Error('API error');
-            
-            const data = await response.json();
-            return data.choices[0].message.content;
+            if (!resposta.ok) throw new Error('Erro na API');
+
+            const dados = await resposta.json();
+            const textoResp = dados.choices[0].message.content;
+
+            removeTyping(typing);
+            addMsg(textoResp, 'ai');
+            historico.push({role: "assistant", content: textoResp});
+
+        } catch (erro) {
+            removeTyping(typing);
+            addMsg(`❌ Erro: ${erro.message}\n\nVerifique sua API key.`, 'ai');
         }
 
-        // ==========================================
-        // RESPOSTAS INTELIGENTES (FALLBACK)
-        // ==========================================
-        async function gerarRespostaInteligente(texto) {
-            const lower = texto.toLowerCase();
-            
-            // Verifica padrões conhecidos
-            for (let [padrao, resposta] of Object.entries(RESPOSTAS_VENICE)) {
-                if (padrao === 'default') continue;
-                const regex = new RegExp(padrao, 'i');
-                if (regex.test(lower)) return resposta;
-            }
+        input.disabled = false;
+        document.getElementById('send-btn').disabled = false;
+        input.focus();
+    }
 
-            // Processamento inteligente para perguntas desconhecidas
-            if (lower.includes('código') || lower.includes('programa') || lower.includes('script')) {
-                return gerarCodigoDemo(texto);
-            }
-            
-            if (lower.includes('explique') || lower.includes('o que é') || lower.includes('como')) {
-                return gerarExplicacaoDemo(texto);
-            }
-
-            // Resposta genérica inteligente
-            return `Entendi sua pergunta sobre "${texto}".
-
-Estou funcionando em **modo otimizado** no momento. Para respostas mais completas e personalizadas, a API está disponível.
-
-Posso ajudar com:
-• **Códigos** - Digite "crie código de..."
-• **Cálculos** - Digite a expressão matemática
-• **Explicações** - Pergunte "explique sobre..."
-
-O que você gostaria de explorar?`;
-        }
-
-        function gerarCodigoDemo(pedido) {
-            const lang = pedido.match(/\b(python|javascript|js|html|css|java|cpp|c\+\+)\b/i)?.[0] || 'javascript';
-            
-            const exemplos = {
-                python: `def exemplo():
-    print("${CONFIG.NOME} - Demo")
-    return "Funcionando!"`,
-                javascript: `function exemplo() {
-    console.log("${CONFIG.NOME} - Demo");
-    return "Funcionando!";
-}`,
-                html: `<div class="${CONFIG.NOME.toLowerCase().replace(' ', '-')}">
-    <h1>Olá!</h1>
-</div>`
-            };
-
-            return `💻 **Código ${lang}** (Modo Demo):
-
-\`\`\`${lang}
-${exemplos[lang.toLowerCase()] || exemplos.javascript}
-\`\`\`
-
-⚡ Para códigos mais complexos e completos, a API está disponível!
-
-Quer que eu explique esse código ou crie algo mais específico?`;
-        }
-
-        function gerarExplicacaoDemo(tema) {
-            return `📚 **Sobre "${tema}"** (Resumo):
-
-${tema} é um tema fascinante! Aqui estão os pontos principais:
-
-1. **Conceito Central** - Base fundamental do assunto
-2. **Aplicações Práticas** - Como se usa no mundo real  
-3. **Importância** - Por que isso importa
-
-Para uma explicação completa e detalhada com a API GPT-4 ativa, posso aprofundar muito mais!
-
-Quer que eu me aprofunde em algum aspecto específico?`;
-        }
-
-        // ==========================================
-        // FERRAMENTAS
-        // ==========================================
-        function resolverCalculo(texto) {
-            const padroes = [
-                /^calc\s+(.+)/i,
-                /^=\s*(.+)/,
-                /^([0-9+\-*/().^√π\s]+)$/
-            ];
-
-            for (let p of padroes) {
-                const m = texto.match(p);
-                if (m && m[1]) {
-                    try {
-                        let expr = m[1]
-                            .replace(/\^/g, '**')
-                            .replace(/√(\d+)/g, 'Math.sqrt($1)')
-                            .replace(/π/g, 'Math.PI')
-                            .replace(/,/g, '.');
-                        
-                        if (!/^[0-9+\-*/().\s^]+$/.test(expr.replace(/Math\.\w+/g, ''))) continue;
-                        
-                        const res = Function('"use strict"; return (' + expr + ')')();
-                        return {
-                            expr: m[1],
-                            result: Number(res.toFixed(10)).toString().replace(/\.?0+$/, '')
-                        };
-                    } catch(e) {}
-                }
-            }
-            return null;
-        }
-
-        function processarComando(cmd) {
-            const c = cmd.toLowerCase();
-            if (c === '/limpar') {
-                historico = [];
-                document.getElementById('chat').innerHTML = '';
-                addMsg('✅ Conversa limpa!', 'ai');
-            } else if (c.startsWith('/calc ')) {
-                const expr = c.replace('/calc ', '');
-                const calc = resolverCalculo('calc ' + expr);
-                if (calc) addCalc(calc.expr, calc.result);
-            } else {
-                addMsg('Comandos: /limpar, /calc [expressão]', 'ai');
+    function calcular(texto) {
+        const padroes = [/^calc\s+(.+)/i, /^=\s*(.+)/, /^([0-9+\-*/().^√π\s]+)$/];
+        for (let p of padroes) {
+            const m = texto.match(p);
+            if (m?.[1]) {
+                try {
+                    let expr = m[1].replace(/\^/g, '**').replace(/√(\d+)/g, 'Math.sqrt($1)').replace(/π/g, 'Math.PI').replace(/,/g, '.');
+                    const res = Function('"use strict"; return (' + expr + ')')();
+                    return {expr: m[1], res: Number(res.toFixed(10)).toString().replace(/\.?0+$/, '')};
+                } catch(e) {}
             }
         }
+        return null;
+    }
 
-        // ==========================================
-        // INTERFACE
-        // ==========================================
-        function addMsg(texto, tipo) {
-            const chat = document.getElementById('chat');
-            const div = document.createElement('div');
-            div.className = 'msg ' + tipo;
-            
-            if (tipo === 'ai') {
-                div.innerHTML = `<div class="ai-name">🫒 ${CONFIG.NOME}</div>${formatar(texto)}`;
-            } else {
-                div.innerHTML = formatar(texto);
-            }
-            
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
-        }
+    function addMsg(texto, tipo) {
+        const div = document.createElement('div');
+        div.className = 'msg ' + tipo;
+        div.innerHTML = tipo === 'ai' ? `<div class="ai-name">🫒 ${CONFIG.NOME}</div>${formatar(texto)}` : formatar(texto);
+        document.getElementById('chat').appendChild(div);
+        scroll();
+    }
 
-        function addCalc(expr, res) {
-            const div = document.createElement('div');
-            div.className = 'msg ai';
-            div.innerHTML = `
-                <div class="ai-name">🫒 ${CONFIG.NOME}</div>
-                <div class="calc-box">
-                    <div style="font-size:13px;color:#888;margin-bottom:4px">🧮 ${expr}</div>
-                    <div style="font-size:20px;font-weight:bold;color:#10a37f">${res}</div>
-                </div>
-            `;
-            document.getElementById('chat').appendChild(div);
-            scroll();
-        }
+    function addCalc(expr, res) {
+        const div = document.createElement('div');
+        div.className = 'msg ai';
+        div.innerHTML = `<div class="ai-name">🫒 ${CONFIG.NOME}</div><div style="background:linear-gradient(135deg,rgba(16,163,127,0.1),rgba(16,163,127,0.05));border-left:3px solid #10a37f;padding:10px;border-radius:0 8px 8px 0"><div style="font-size:13px;color:#888">🧮 ${expr}</div><div style="font-size:20px;font-weight:bold;color:#10a37f">${res}</div></div>`;
+        document.getElementById('chat').appendChild(div);
+        scroll();
+    }
 
-        function addTyping() {
-            const div = document.createElement('div');
-            div.className = 'msg ai';
-            div.id = 'typing';
-            div.innerHTML = `
-                <div class="ai-name">🫒 ${CONFIG.NOME}</div>
-                <div class="typing"><span></span><span></span><span></span></div>
-            `;
-            document.getElementById('chat').appendChild(div);
-            scroll();
-            return div.id;
-        }
+    function addTyping() {
+        const div = document.createElement('div');
+        div.className = 'msg ai';
+        div.id = 'typing';
+        div.innerHTML = `<div class="ai-name">🫒 ${CONFIG.NOME}</div><div class="typing"><span></span><span></span><span></span></div>`;
+        document.getElementById('chat').appendChild(div);
+        scroll();
+        return div.id;
+    }
 
-        function removeTyping(id) {
-            const el = document.getElementById(id);
-            if (el) el.remove();
-        }
+    function removeTyping(id) {
+        const el = document.getElementById(id);
+        if (el) el.remove();
+    }
 
-        function formatar(t) {
-            return t
-                .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-                .replace(/```(\w+)?\n?([\s\S]*?)```/g, '<div class="code-block">$2</div>')
-                .replace(/`(.*?)`/g, '<code style="background:#2d2d3a;padding:2px 6px;border-radius:4px">$1</code>')
-                .replace(/\n/g, '<br>');
-        }
+    function formatar(t) {
+        return t.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/```(\w+)?\n?([\s\S]*?)```/g, '<div class="code-block">$2</div>').replace(/`(.*?)`/g, '<code style="background:#2d2d3a;padding:2px 6px;border-radius:4px">$1</code>').replace(/\n/g, '<br>');
+    }
 
-        function scroll() {
-            document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
-        }
-    </script>
+    function scroll() {
+        document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+    }
+</script>
+
 </body>
 </html>
