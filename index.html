@@ -67,7 +67,6 @@
             transition: background 0.3s, color 0.3s;
         }
 
-        /* Header */
         #header {
             padding: 12px 16px;
             background: var(--bg-secondary);
@@ -152,7 +151,6 @@
             box-shadow: 0 2px 10px rgba(225, 48, 108, 0.2);
         }
 
-        /* Status Bar */
         #status-bar {
             padding: 8px 16px;
             background: var(--bg-secondary);
@@ -218,7 +216,6 @@
             color: black;
         }
 
-        /* Chat Container */
         #chat-container {
             flex: 1;
             overflow-y: auto;
@@ -243,7 +240,6 @@
             border-radius: 3px;
         }
 
-        /* Messages */
         .message {
             max-width: 85%;
             padding: 12px 16px;
@@ -323,7 +319,6 @@
             margin-bottom: 0;
         }
 
-        /* Welcome Card */
         .welcome-card {
             background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-elevated));
             border: 1px solid var(--border);
@@ -376,7 +371,6 @@
             transform: translateY(-2px);
         }
 
-        /* Code Block */
         .code-block {
             background: #0d0d0d;
             border: 1px solid #333;
@@ -428,7 +422,6 @@
             white-space: pre-wrap;
         }
 
-        /* Calculator Box */
         .calc-box {
             background: linear-gradient(135deg, rgba(52, 199, 89, 0.1), rgba(52, 199, 89, 0.05));
             border-left: 3px solid var(--success);
@@ -451,7 +444,6 @@
             font-family: 'SF Mono', monospace;
         }
 
-        /* Image Container */
         .image-container {
             margin: 10px 0;
             border-radius: var(--radius-md);
@@ -486,7 +478,6 @@
             background: var(--bg-tertiary);
         }
 
-        /* Input Area */
         #input-area {
             display: flex;
             padding: 12px 16px;
@@ -584,7 +575,6 @@
             color: white;
         }
 
-        /* Typing Indicator */
         .typing-indicator {
             display: flex;
             gap: 4px;
@@ -607,7 +597,6 @@
             40% { transform: scale(1); }
         }
 
-        /* Error Message */
         .error-box {
             background: rgba(255, 59, 48, 0.1);
             border: 1px solid rgba(255, 59, 48, 0.3);
@@ -629,7 +618,6 @@
             color: var(--danger);
         }
 
-        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -765,7 +753,6 @@
         .btn-yellow { background: rgba(255, 149, 0, 0.1); color: var(--warning); border: 1px solid rgba(255, 149, 0, 0.3); }
         .btn-purple { background: rgba(175, 82, 222, 0.1); color: #af52de; border: 1px solid rgba(175, 82, 222, 0.3); }
 
-        /* Toast Notification */
         .toast {
             position: fixed;
             bottom: 100px;
@@ -792,14 +779,12 @@
         .toast.success { border-color: var(--success); color: var(--success); }
         .toast.error { border-color: var(--danger); color: var(--danger); }
 
-        /* Responsive */
         @media (max-width: 480px) {
             .message { max-width: 90%; }
             .features-grid { grid-template-columns: 1fr; }
             #header h1 { font-size: 16px; }
         }
 
-        /* Loading Spinner */
         .spinner {
             width: 20px;
             height: 20px;
@@ -813,7 +798,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Markdown Styles */
         .message-content strong { font-weight: 600; }
         .message-content em { font-style: italic; }
         .message-content code {
@@ -846,7 +830,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header id="header">
         <div id="header-info">
             <div id="logo">🫒</div>
@@ -861,7 +844,6 @@
         </a>
     </header>
 
-    <!-- Status Bar -->
     <div id="status-bar">
         <div class="status-item">
             <span>Modo:</span>
@@ -883,36 +865,34 @@
         <span id="mode-badge" class="mode-badge chat">Chat</span>
     </div>
 
-    <!-- Chat -->
     <div id="chat-container">
         <div class="welcome-card">
             <h2>👋 Olá! Eu sou a Oliveira 2s</h2>
             <p>Sua assistente inteligente completa! Posso conversar sobre qualquer assunto, gerar imagens, criar códigos e muito mais.</p>
             <div class="features-grid">
-                <div class="feature-item">
+                <div class="feature-item" onclick="sendQuick('Explique o que você pode fazer')">
                     <span>💬</span>
                     <span>Chat Ilimitado</span>
                 </div>
-                <div class="feature-item">
+                <div class="feature-item" onclick="toggleImageMode()">
                     <span>🎨</span>
                     <span>Gerar Imagens</span>
                 </div>
-                <div class="feature-item">
+                <div class="feature-item" onclick="sendQuick('/codigo python calculadora')">
                     <span>💻</span>
                     <span>Código & Programação</span>
                 </div>
-                <div class="feature-item">
+                <div class="feature-item" onclick="sendQuick('/calc 1234 * 5678')">
                     <span>🧮</span>
                     <span>Calculadora</span>
                 </div>
             </div>
             <p style="margin-top: 16px; font-size: 13px; color: var(--text-tertiary);">
-                💡 <strong>Dica:</strong> Use /ajuda para ver todos os comandos disponíveis
+                💡 <strong>Dica:</strong> Digite /ajuda para ver todos os comandos
             </p>
         </div>
     </div>
 
-    <!-- Input -->
     <div id="input-area">
         <button class="btn btn-secondary" onclick="toggleImageMode()" title="Alternar modo imagem">
             🎨
@@ -934,44 +914,33 @@
         </button>
     </div>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modal">
         <div class="modal">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-title">Configurações</h3>
                 <button class="modal-close" onclick="closeModal()">×</button>
             </div>
-            <div class="modal-body" id="modal-body">
-                <!-- Dynamic content -->
-            </div>
+            <div class="modal-body" id="modal-body"></div>
         </div>
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
     <script>
         // ============================================
-        // CONFIGURAÇÕES - ATUALIZE SUA API KEY AQUI
+        // CONFIGURAÇÕES
         // ============================================
         const CONFIG = {
-            // DADOS DO PROJETO
             NOME_IA: "Oliveira",
             NOME_COMPLETO: "Oliveira 2s",
             VERSAO: "2.0.0",
             INSTAGRAM: "@oliveira2s",
             SENHA_ADMIN: "123456",
-            
-            // API CONFIGURATION - SUBSTITUA PELA SUA KEY
             API_KEY: "VENICE_INFERENCE_KEY_xPBkwPgaoFQMnpsl5eOG7dZrP0dCVyw_WvSHl4gBau",
             API_URL: "https://api.venice.ai/api/v1/chat/completions",
             IMAGE_API_URL: "https://api.venice.ai/api/v1/image/generate",
-            
-            // MODELOS
             MODELO_PADRAO: "venice-uncensored",
             IMAGE_MODEL: "sdxl",
-            
-            // FEATURES
             MAX_HISTORICO: 50,
             TEMPERATURA: 0.8,
             MAX_TOKENS: 4000
@@ -980,16 +949,14 @@
         // ============================================
         // ESTADO GLOBAL
         // ============================================
-        const state = {
-            historico: [],
-            modeloAtual: CONFIG.MODELO_PADRAO,
-            modoAtual: "chat",
-            systemPrompt: "",
-            isAdmin: false,
-            isTyping: false,
-            apiDisponivel: true,
-            tema: localStorage.getItem('oliveira_tema') || 'dark'
-        };
+        let historico = [];
+        let modeloAtual = CONFIG.MODELO_PADRAO;
+        let modoAtual = "chat";
+        let systemPrompt = "";
+        let isAdmin = false;
+        let isTyping = false;
+        let apiDisponivel = true;
+        let tema = localStorage.getItem('oliveira_tema') || 'dark';
 
         // ============================================
         // SYSTEM PROMPTS
@@ -1008,7 +975,6 @@ CAPACIDADES:
 - Cálculos matemáticos precisos
 - Criação de imagens via prompts
 - Análise e resolução de problemas
-- Respostas sem censura (quando apropriado)
 
 ESTILO:
 - Direta, eficiente e amigável
@@ -1044,7 +1010,7 @@ Lembre-se: você é ${CONFIG.NOME_COMPLETO} criada por ${CONFIG.INSTAGRAM}!`
             aplicarTema();
             verificarAPI();
             
-            if (state.historico.length === 0) {
+            if (historico.length === 0) {
                 mostrarBoasVindas();
             } else {
                 renderizarHistorico();
@@ -1057,26 +1023,25 @@ Lembre-se: você é ${CONFIG.NOME_COMPLETO} criada por ${CONFIG.INSTAGRAM}!`
             const salvos = localStorage.getItem('oliveira_estado');
             if (salvos) {
                 const dados = JSON.parse(salvos);
-                state.historico = dados.historico || [];
-                state.modeloAtual = dados.modeloAtual || CONFIG.MODELO_PADRAO;
-                state.modoAtual = dados.modoAtual || "chat";
-                state.systemPrompt = dados.systemPrompt || "";
-                state.isAdmin = dados.isAdmin || false;
+                historico = dados.historico || [];
+                modeloAtual = dados.modeloAtual || CONFIG.MODELO_PADRAO;
+                modoAtual = dados.modoAtual || "chat";
+                systemPrompt = dados.systemPrompt || "";
+                isAdmin = dados.isAdmin || false;
             }
             
-            // Atualizar UI
-            document.getElementById('model-select').value = state.modeloAtual;
-            document.getElementById('mode-select').value = state.modoAtual;
+            document.getElementById('model-select').value = modeloAtual;
+            document.getElementById('mode-select').value = modoAtual;
             atualizarBadgeModo();
         }
 
         function salvarEstado() {
             const dados = {
-                historico: state.historico.slice(-CONFIG.MAX_HISTORICO),
-                modeloAtual: state.modeloAtual,
-                modoAtual: state.modoAtual,
-                systemPrompt: state.systemPrompt,
-                isAdmin: state.isAdmin
+                historico: historico.slice(-CONFIG.MAX_HISTORICO),
+                modeloAtual: modeloAtual,
+                modoAtual: modoAtual,
+                systemPrompt: systemPrompt,
+                isAdmin: isAdmin
             };
             localStorage.setItem('oliveira_estado', JSON.stringify(dados));
         }
@@ -1085,14 +1050,14 @@ Lembre-se: você é ${CONFIG.NOME_COMPLETO} criada por ${CONFIG.INSTAGRAM}!`
         // TEMA
         // ============================================
         function aplicarTema() {
-            document.documentElement.setAttribute('data-theme', state.tema);
+            document.documentElement.setAttribute('data-theme', tema);
         }
 
         function toggleTema() {
-            state.tema = state.tema === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('oliveira_tema', state.tema);
+            tema = tema === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('oliveira_tema', tema);
             aplicarTema();
-            mostrarToast(`Tema ${state.tema === 'dark' ? 'escuro' : 'claro'} ativado`, 'success');
+            mostrarToast(`Tema ${tema === 'dark' ? 'escuro' : 'claro'} ativado`, 'success');
         }
 
         // ============================================
@@ -1100,7 +1065,6 @@ Lembre-se: você é ${CONFIG.NOME_COMPLETO} criada por ${CONFIG.INSTAGRAM}!`
         // ============================================
         async function verificarAPI() {
             try {
-                // Teste simples para verificar se API está respondendo
                 const response = await fetch(CONFIG.API_URL, {
                     method: 'POST',
                     headers: {
@@ -1114,17 +1078,16 @@ Lembre-se: você é ${CONFIG.NOME_COMPLETO} criada por ${CONFIG.INSTAGRAM}!`
                     })
                 });
                 
-                state.apiDisponivel = response.status !== 401;
+                apiDisponivel = response.status !== 401;
                 
                 if (response.status === 401) {
                     document.getElementById('connection-status').textContent = 'Modo Demo';
                     document.getElementById('mode-badge').className = 'mode-badge demo';
                     document.getElementById('mode-badge').textContent = 'DEMO';
-                    mostrarToast('API indisponível - Modo Demo ativado', 'error');
                 }
                 
             } catch (e) {
-                state.apiDisponivel = false;
+                apiDisponivel = false;
                 document.getElementById('connection-status').textContent = 'Modo Demo';
             }
         }
@@ -1133,7 +1096,7 @@ Lembre-se: você é ${CONFIG.NOME_COMPLETO} criada por ${CONFIG.INSTAGRAM}!`
             const msgs = [
                 { 
                     role: "system", 
-                    content: state.isAdmin ? SYSTEM_PROMPTS.admin : (state.systemPrompt || SYSTEM_PROMPTS.padrao)
+                    content: isAdmin ? SYSTEM_PROMPTS.admin : (systemPrompt || SYSTEM_PROMPTS.padrao)
                 },
                 ...mensagens
             ];
@@ -1149,7 +1112,7 @@ Lembre-se: você é ${CONFIG.NOME_COMPLETO} criada por ${CONFIG.INSTAGRAM}!`
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: state.modeloAtual,
+                        model: modeloAtual,
                         messages: msgs,
                         temperature: CONFIG.TEMPERATURA,
                         max_tokens: CONFIG.MAX_TOKENS
@@ -1178,21 +1141,21 @@ Lembre-se: você é ${CONFIG.NOME_COMPLETO} criada por ${CONFIG.INSTAGRAM}!`
             }
         }
 
-        // MODO DEMO - Funciona sem API
+        // ============================================
+        // MODO DEMO
+        // ============================================
         function modoDemo(mensagem) {
             const lower = mensagem.toLowerCase();
             
-            // Respostas simuladas inteligentes
             const respostas = {
                 'oi': `Oi! 👋 Eu sou a ${CONFIG.NOME_COMPLETO}!
 
 Estou funcionando em **Modo Demo** porque a API key não está configurada ou expirou.
 
-Para funcionalidade completa:
-1. Obtenha uma API key em venice.ai
-2. Substitua no código
+Para funcionalidade completa, configure uma API key da Venice em:
+https://venice.ai
 
-Mas posso responder algumas coisas básicas! Como posso ajudar?`,
+Criada por ${CONFIG.INSTAGRAM} 💙`,
 
                 'olá': `Olá! 🫒 Sou a ${CONFIG.NOME_IA}!
 
@@ -1215,6 +1178,7 @@ Posso conversar, gerar ideias, fazer cálculos básicos e muito mais quando a AP
 /ajuda - Mostrar comandos
 /quem - Quem sou eu
 /criador - Ver Instagram
+/limpar - Apagar histórico
 
 🧮 **Calculadora** (funciona offline)
 /calc [expressão] - Calcular
@@ -1229,19 +1193,33 @@ Posso conversar, gerar ideias, fazer cálculos básicos e muito mais quando a AP
 
 https://instagram.com/oliveira2s
 
-Siga lá para mais projetos! 🔥`
+Siga lá para mais projetos! 🔥`,
+
+                'explique o que você pode fazer': `🫒 **O que eu posso fazer:**
+
+**Modo Demo (atual):**
+- 💬 Conversas básicas
+- 🧮 Cálculos matemáticos
+- 💻 Códigos de exemplo
+- 📝 Anotações e listas
+
+**Com API configurada:**
+- 🎨 Geração de imagens
+- 🧠 Respostas inteligentes com IA
+- 💻 Código em qualquer linguagem
+- 🔍 Pesquisas e análises
+- 🌐 Acesso à informação atualizada
+
+Configure sua API em venice.ai!`
             };
             
-            // Procura correspondência
             for (let [chave, valor] of Object.entries(respostas)) {
                 if (lower.includes(chave)) return valor;
             }
             
-            // Cálculos offline
             const calc = resolverCalculoOffline(mensagem);
             if (calc) return calc;
             
-            // Resposta padrão demo
             return `Entendi: "${mensagem}"
 
 ⚠️ **Modo Demo** - API não configurada
@@ -1285,7 +1263,7 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
                     <p style="margin-top: 16px; font-size: 13px; color: var(--text-tertiary);">
                         💡 <strong>Dica:</strong> Digite /ajuda para ver todos os comandos
                     </p>
-                    ${!state.apiDisponivel ? '<p style="margin-top: 12px; font-size: 12px; color: var(--warning);">⚠️ Modo Demo - Configure a API key para funcionalidade completa</p>' : ''}
+                    ${!apiDisponivel ? '<p style="margin-top: 12px; font-size: 12px; color: var(--warning);">⚠️ Modo Demo - Configure a API key para funcionalidade completa</p>' : ''}
                 </div>
             `;
         }
@@ -1294,34 +1272,24 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
             const container = document.getElementById('chat-container');
             container.innerHTML = '';
             
-            state.historico.forEach(msg => {
+            historico.forEach(msg => {
                 adicionarMensagemUI(msg.role, msg.content, false);
             });
         }
 
-        function adicionarMensagemUI(tipo, conteudo, animar = true) {
+        function adicionarMensagemUI(tipo, conteudo, animar) {
             const container = document.getElementById('chat-container');
             const div = document.createElement('div');
-            div.className = `message ${tipo}`;
+            div.className = 'message ' + tipo;
             
             if (animar) div.style.animation = 'messageIn 0.3s ease-out';
             
             const hora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
             
             if (tipo === 'user') {
-                div.innerHTML = `
-                    <div class="message-content">${formatarTexto(conteudo)}</div>
-                    <div class="message-time" style="text-align: right; margin-top: 4px;">${hora}</div>
-                `;
+                div.innerHTML = '<div class="message-content">' + formatarTexto(conteudo) + '</div><div class="message-time" style="text-align: right; margin-top: 4px;">' + hora + '</div>';
             } else {
-                div.innerHTML = `
-                    <div class="message-header">
-                        <div class="message-avatar">🫒</div>
-                        <span class="message-author">${CONFIG.NOME_IA}</span>
-                        <span class="message-time">${hora}</span>
-                    </div>
-                    <div class="message-content">${formatarResposta(conteudo)}</div>
-                `;
+                div.innerHTML = '<div class="message-header"><div class="message-avatar">🫒</div><span class="message-author">' + CONFIG.NOME_IA + '</span><span class="message-time">' + hora + '</span></div><div class="message-content">' + formatarResposta(conteudo) + '</div>';
             }
             
             container.appendChild(div);
@@ -1334,15 +1302,7 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
             const div = document.createElement('div');
             div.className = 'message ai';
             div.id = 'typing-indicator';
-            div.innerHTML = `
-                <div class="message-header">
-                    <div class="message-avatar">🫒</div>
-                    <span class="message-author">${CONFIG.NOME_IA}</span>
-                </div>
-                <div class="typing-indicator">
-                    <span></span><span></span><span></span>
-                </div>
-            `;
+            div.innerHTML = '<div class="message-header"><div class="message-avatar">🫒</div><span class="message-author">' + CONFIG.NOME_IA + '</span></div><div class="typing-indicator"><span></span><span></span><span></span></div>';
             container.appendChild(div);
             scrollToBottom();
         }
@@ -1361,7 +1321,6 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
         }
 
         function formatarResposta(texto) {
-            // Markdown básico
             let formatado = texto
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
@@ -1371,15 +1330,8 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
                 .replace(/`(.*?)`/g, '<code>$1</code>')
                 .replace(/\n/g, '<br>');
             
-            // Code blocks
-            formatado = formatado.replace(/```(\w+)?\n?([\s\S]*?)```/g, (match, lang, code) => {
-                return `<div class="code-block">
-                    <div class="code-header">
-                        <span class="code-lang">${lang || 'code'}</span>
-                        <button class="code-copy" onclick="copiarCodigo(this)">Copiar</button>
-                    </div>
-                    <div class="code-content">${code}</div>
-                </div>`;
+            formatado = formatado.replace(/```(\w+)?\n?([\s\S]*?)```/g, function(match, lang, code) {
+                return '<div class="code-block"><div class="code-header"><span class="code-lang">' + (lang || 'code') + '</span><button class="code-copy" onclick="copiarCodigo(this)">Copiar</button></div><div class="code-content">' + code + '</div></div>';
             });
             
             return formatado;
@@ -1409,9 +1361,8 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
             const input = document.getElementById('msg');
             const texto = input.value.trim();
             
-            if (!texto || state.isTyping) return;
+            if (!texto || isTyping) return;
             
-            // Processar comandos
             if (texto.startsWith('/')) {
                 processarComando(texto);
                 input.value = '';
@@ -1419,46 +1370,42 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
                 return;
             }
             
-            // Adicionar mensagem do usuário
-            adicionarMensagemUI('user', texto);
-            state.historico.push({ role: 'user', content: texto });
+            adicionarMensagemUI('user', texto, true);
+            historico.push({ role: 'user', content: texto });
             salvarEstado();
             
             input.value = '';
             autoResize(input);
             input.disabled = true;
             document.getElementById('send-btn').disabled = true;
-            state.isTyping = true;
+            isTyping = true;
             
             adicionarDigitando();
             
             try {
                 let resposta;
                 
-                // Verificar cálculos rápidos
                 const calc = resolverCalculoOffline(texto);
-                if (calc && !state.apiDisponivel) {
+                if (calc && !apiDisponivel) {
                     resposta = calc;
                 } else if (modoAtual === 'image' || texto.toLowerCase().startsWith('imagem:')) {
                     await gerarImagem(texto.replace(/^imagem:\s*/i, ''));
                     return;
                 } else {
-                    // Tentar API ou fallback para demo
                     try {
-                        if (state.apiDisponivel) {
-                            resposta = await chamarAPI(state.historico);
+                        if (apiDisponivel) {
+                            resposta = await chamarAPI(historico);
                         } else {
                             throw new Error('API não disponível');
                         }
                     } catch (apiError) {
-                        // Fallback para modo demo
                         resposta = modoDemo(texto);
                     }
                 }
                 
                 removerDigitando();
-                adicionarMensagemUI('ai', resposta);
-                state.historico.push({ role: 'assistant', content: resposta });
+                adicionarMensagemUI('ai', resposta, true);
+                historico.push({ role: 'assistant', content: resposta });
                 salvarEstado();
                 
             } catch (erro) {
@@ -1469,7 +1416,7 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
             input.disabled = false;
             document.getElementById('send-btn').disabled = false;
             input.focus();
-            state.isTyping = false;
+            isTyping = false;
         }
 
         function sendQuick(texto) {
@@ -1481,12 +1428,7 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
             const container = document.getElementById('chat-container');
             const div = document.createElement('div');
             div.className = 'message ai';
-            div.innerHTML = `
-                <div class="error-box">
-                    <span class="error-icon">⚠️</span>
-                    <span class="error-text">${mensagem}</span>
-                </div>
-            `;
+            div.innerHTML = '<div class="error-box"><span class="error-icon">⚠️</span><span class="error-text">' + mensagem + '</span></div>';
             container.appendChild(div);
             scrollToBottom();
         }
@@ -1498,31 +1440,51 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
             const partes = cmd.toLowerCase().split(' ');
             const args = cmd.split(' ').slice(1).join(' ');
             
-            const comandos = {
-                '/ajuda': mostrarAjuda,
-                '/help': mostrarAjuda,
-                '/admin': openAdmin,
-                '/limpar': limparChat,
-                '/clear': limparChat,
-                '/imagem': () => { if(args) toggleImageMode(); sendQuick(args); },
-                '/img': () => { if(args) toggleImageMode(); sendQuick(args); },
-                '/codigo': () => gerarCodigo(args),
-                '/code': () => gerarCodigo(args),
-                '/calc': () => calcularCmd(args),
-                '/quem': () => sendQuick('Quem é você?'),
-                '/instagram': () => window.open(`https://instagram.com/oliveira2s`, '_blank'),
-                '/criador': () => sendQuick('Quem te criou?'),
-                '/tema': toggleTema,
-                '/modo': () => toggleImageMode(),
-                '/exportar': exportarChat,
-                '/importar': importarChat
-            };
-            
-            const acao = comandos[partes[0]];
-            if (acao) {
-                acao();
-            } else {
-                mostrarToast('Comando não reconhecido. Digite /ajuda', 'error');
+            switch(partes[0]) {
+                case '/ajuda':
+                case '/help':
+                    mostrarAjuda();
+                    break;
+                case '/admin':
+                    openAdmin();
+                    break;
+                case '/limpar':
+                case '/clear':
+                    limparChat();
+                    break;
+                case '/imagem':
+                case '/img':
+                    if(args) { toggleImageMode(); sendQuick(args); }
+                    else mostrarToast('Use: /imagem um gato astronauta', 'error');
+                    break;
+                case '/codigo':
+                case '/code':
+                    gerarCodigo(args);
+                    break;
+                case '/calc':
+                    calcularCmd(args);
+                    break;
+                case '/quem':
+                    sendQuick('Quem é você?');
+                    break;
+                case '/instagram':
+                case '/criador':
+                    window.open('https://instagram.com/oliveira2s', '_blank');
+                    break;
+                case '/tema':
+                    toggleTema();
+                    break;
+                case '/modo':
+                    toggleImageMode();
+                    break;
+                case '/exportar':
+                    exportarChat();
+                    break;
+                case '/importar':
+                    importarChat();
+                    break;
+                default:
+                    mostrarToast('Comando não reconhecido. Digite /ajuda', 'error');
             }
         }
 
@@ -1551,12 +1513,12 @@ Criada por ${CONFIG.INSTAGRAM} 💙`;
 
 Criada com 💙 por ${CONFIG.INSTAGRAM}`;
             
-            adicionarMensagemUI('ai', ajuda);
+            adicionarMensagemUI('ai', ajuda, true);
         }
 
         function limparChat() {
             if (confirm('Limpar todo o histórico?')) {
-                state.historico = [];
+                historico = [];
                 salvarEstado();
                 mostrarBoasVindas();
                 mostrarToast('Histórico limpo!', 'success');
@@ -1574,8 +1536,8 @@ Criada com 💙 por ${CONFIG.INSTAGRAM}`;
                 /^[=](.+)/
             ];
             
-            for (let padrao of padroes) {
-                const match = texto.match(padrao);
+            for (let i = 0; i < padroes.length; i++) {
+                const match = texto.match(padroes[i]);
                 if (match && match[1]) {
                     try {
                         let expr = match[1]
@@ -1588,7 +1550,6 @@ Criada com 💙 por ${CONFIG.INSTAGRAM}`;
                             .replace(/log/g, 'Math.log')
                             .replace(/,/g, '.');
                         
-                        // Verificar se é expressão válida
                         if (!/^[0-9+\-*/().\s%^]+$/.test(expr.replace(/Math\.\w+/g, ''))) {
                             continue;
                         }
@@ -1607,9 +1568,9 @@ Resultado: **${Number(resultado.toFixed(10)).toString().replace(/\.?0+$/, '')}**
         }
 
         function calcularCmd(expr) {
-            const res = resolverCalculoOffline(`calc ${expr}`);
+            const res = resolverCalculoOffline('calc ' + expr);
             if (res) {
-                adicionarMensagemUI('ai', res);
+                adicionarMensagemUI('ai', res, true);
             } else {
                 mostrarToast('Expressão inválida', 'error');
             }
@@ -1626,19 +1587,19 @@ Resultado: **${Number(resultado.toFixed(10)).toString().replace(/\.?0+$/, '')}**
             try {
                 let codigo;
                 
-                if (state.apiDisponivel) {
-                    const prompt = `Gere código ${args}. Responda APENAS com o código em markdown.`;
+                if (apiDisponivel) {
+                    const prompt = 'Gere código ' + args + '. Responda APENAS com o código em markdown.';
                     codigo = await chamarAPI([{role: 'user', content: prompt}]);
                 } else {
-                    // Código demo
-                    const [lang, ...desc] = args.split(' ');
-                    const descricao = desc.join(' ');
+                    const partes = args.split(' ');
+                    const lang = partes[0];
+                    const desc = partes.slice(1).join(' ');
                     
                     const exemplos = {
                         python: `def main():
     print("Olá! Código gerado por ${CONFIG.NOME_COMPLETO}")
     
-    # ${descricao}
+    # ${desc}
     resultado = 42
     
     return resultado
@@ -1648,7 +1609,7 @@ if __name__ == "__main__":
                         javascript: `function main() {
     console.log("Olá! Código gerado por ${CONFIG.NOME_COMPLETO}");
     
-    // ${descricao}
+    // ${desc}
     const resultado = 42;
     
     return resultado;
@@ -1661,18 +1622,17 @@ main();`,
     <title>${CONFIG.NOME_COMPLETO}</title>
 </head>
 <body>
-    <h1>${descricao}</h1>
+    <h1>${desc}</h1>
     <p>Criado por ${CONFIG.INSTAGRAM}</p>
 </body>
 </html>`
                     };
                     
-                    codigo = exemplos[lang] || exemplos.python;
-                    codigo = `\`\`\`${lang || 'python'}\n${codigo}\n\`\`\`\n\n⚠️ Modo Demo - API não configurada`;
+                    codigo = '```' + (lang || 'python') + '\n' + (exemplos[lang] || exemplos.python) + '\n```\n\n⚠️ Modo Demo - API não configurada';
                 }
                 
                 removerDigitando();
-                adicionarMensagemUI('ai', `💻 Código gerado:\n\n${codigo}`);
+                adicionarMensagemUI('ai', '💻 Código gerado:\n\n' + codigo, true);
                 
             } catch (e) {
                 removerDigitando();
@@ -1686,18 +1646,18 @@ main();`,
                 return;
             }
             
-            adicionarMensagemUI('user', `🎨 Gerar imagem: ${prompt}`);
+            adicionarMensagemUI('user', '🎨 Gerar imagem: ' + prompt, true);
             adicionarDigitando();
             
             try {
-                if (!state.apiDisponivel) {
+                if (!apiDisponivel) {
                     throw new Error('Modo Demo - Geração de imagens requer API');
                 }
                 
                 const response = await fetch(CONFIG.IMAGE_API_URL, {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${CONFIG.API_KEY}`,
+                        'Authorization': 'Bearer ' + CONFIG.API_KEY,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
@@ -1718,27 +1678,16 @@ main();`,
                     const url = dados.images[0].url;
                     
                     removerDigitando();
-                    adicionarMensagemUI('ai', `✅ Imagem gerada!
-
-![Imagem](${url})
-
-**Prompt:** ${prompt}
-
-[Ver em tamanho real](${url})`);
+                    adicionarMensagemUI('ai', '✅ Imagem gerada!\n\n![Imagem](' + url + ')\n\n**Prompt:** ' + prompt + '\n\n[Ver em tamanho real](' + url + ')', true);
                     
-                    state.historico.push(
-                        {role: 'user', content: `Gerar imagem: ${prompt}`},
-                        {role: 'assistant', content: `[Imagem gerada: ${prompt}]`}
-                    );
+                    historico.push({role: 'user', content: 'Gerar imagem: ' + prompt});
+                    historico.push({role: 'assistant', content: '[Imagem gerada: ' + prompt + ']'});
                     salvarEstado();
                 }
                 
             } catch (erro) {
                 removerDigitando();
-                adicionarErro(`🎨 Erro: ${erro.message}
-
-Para gerar imagens, configure uma API key válida da Venice em:
-https://venice.ai`);
+                adicionarErro('🎨 Erro: ' + erro.message + '\n\nPara gerar imagens, configure uma API key válida da Venice em:\nhttps://venice.ai');
             }
         }
 
@@ -1758,9 +1707,9 @@ https://venice.ai`);
                 <div class="form-group">
                     <label class="form-label">Modelo</label>
                     <select class="form-input" onchange="changeModel(this.value)">
-                        <option value="venice-uncensored" ${state.modeloAtual === 'venice-uncensored' ? 'selected' : ''}>Venice Uncensored</option>
-                        <option value="kimi-k2-5" ${state.modeloAtual === 'kimi-k2-5' ? 'selected' : ''}>Kimi K2.5</option>
-                        <option value="llama-3.3-70b" ${state.modeloAtual === 'llama-3.3-70b' ? 'selected' : ''}>Llama 3.3 70B</option>
+                        <option value="venice-uncensored" ${modeloAtual === 'venice-uncensored' ? 'selected' : ''}>Venice Uncensored</option>
+                        <option value="kimi-k2-5" ${modeloAtual === 'kimi-k2-5' ? 'selected' : ''}>Kimi K2.5</option>
+                        <option value="llama-3.3-70b" ${modeloAtual === 'llama-3.3-70b' ? 'selected' : ''}>Llama 3.3 70B</option>
                     </select>
                 </div>
                 <div class="admin-grid">
@@ -1779,7 +1728,7 @@ https://venice.ai`);
         }
 
         function openAdmin() {
-            if (!state.isAdmin) {
+            if (!isAdmin) {
                 document.getElementById('modal-title').textContent = '🔐 Acesso Admin';
                 document.getElementById('modal-body').innerHTML = `
                     <div class="form-group">
@@ -1802,7 +1751,7 @@ https://venice.ai`);
         function verificarSenha() {
             const pass = document.getElementById('admin-pass').value;
             if (pass === CONFIG.SENHA_ADMIN) {
-                state.isAdmin = true;
+                isAdmin = true;
                 salvarEstado();
                 mostrarPainelAdmin();
                 mostrarToast('Modo Admin ativado!', 'success');
@@ -1844,7 +1793,7 @@ https://venice.ai`);
         }
 
         function sairAdmin() {
-            state.isAdmin = false;
+            isAdmin = false;
             salvarEstado();
             closeModal();
             mostrarToast('Modo Admin desativado', 'success');
@@ -1866,9 +1815,9 @@ https://venice.ai`);
         }
 
         function editarPersonalidade() {
-            const novo = prompt('Novo system prompt:', state.systemPrompt || SYSTEM_PROMPTS.padrao);
+            const novo = prompt('Novo system prompt:', systemPrompt || SYSTEM_PROMPTS.padrao);
             if (novo !== null) {
-                state.systemPrompt = novo;
+                systemPrompt = novo;
                 salvarEstado();
                 mostrarToast('Personalidade atualizada!', 'success');
                 closeModal();
@@ -1876,15 +1825,15 @@ https://venice.ai`);
         }
 
         // ============================================
-        // UTILITÁRIOS
+        // CONTROLE DE MODO
         // ============================================
         function changeMode() {
             const select = document.getElementById('mode-select');
-            state.modoAtual = select.value;
+            modoAtual = select.value;
             atualizarBadgeModo();
             salvarEstado();
             
-            const placeholder = state.modoAtual === 'image' 
+            const placeholder = modoAtual === 'image' 
                 ? 'Descreva a imagem...' 
                 : 'Fale com a Oliveira...';
             document.getElementById('msg').placeholder = placeholder;
@@ -1898,7 +1847,7 @@ https://venice.ai`);
 
         function atualizarBadgeModo() {
             const badge = document.getElementById('mode-badge');
-            if (state.modoAtual === 'image') {
+            if (modoAtual === 'image') {
                 badge.textContent = 'IMAGEM';
                 badge.className = 'mode-badge image';
             } else {
@@ -1908,9 +1857,9 @@ https://venice.ai`);
         }
 
         function changeModel(modelo) {
-            state.modeloAtual = modelo || document.getElementById('model-select').value;
+            modeloAtual = modelo || document.getElementById('model-select').value;
             salvarEstado();
-            mostrarToast(`Modelo: ${state.modeloAtual}`, 'success');
+            mostrarToast('Modelo: ' + modeloAtual, 'success');
         }
 
         function copiarCodigo(btn) {
@@ -1926,14 +1875,14 @@ https://venice.ai`);
                 nome: CONFIG.NOME_COMPLETO,
                 versao: CONFIG.VERSAO,
                 data: new Date().toISOString(),
-                historico: state.historico
+                historico: historico
             };
             
             const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `oliveira-chat-${Date.now()}.json`;
+            a.download = 'oliveira-chat-' + Date.now() + '.json';
             a.click();
             
             mostrarToast('Chat exportado!', 'success');
@@ -1951,7 +1900,7 @@ https://venice.ai`);
                     try {
                         const dados = JSON.parse(event.target.result);
                         if (dados.historico) {
-                            state.historico = dados.historico;
+                            historico = dados.historico;
                             salvarEstado();
                             renderizarHistorico();
                             mostrarToast('Chat importado!', 'success');
@@ -1966,10 +1915,10 @@ https://venice.ai`);
             input.click();
         }
 
-        function mostrarToast(mensagem, tipo = 'success') {
+        function mostrarToast(mensagem, tipo) {
             const toast = document.getElementById('toast');
             toast.textContent = mensagem;
-            toast.className = `toast ${tipo}`;
+            toast.className = 'toast ' + tipo;
             
             setTimeout(() => toast.classList.add('show'), 10);
             setTimeout(() => {
@@ -1981,12 +1930,10 @@ https://venice.ai`);
             document.getElementById('modal').classList.remove('active');
         }
 
-        // Fechar modal ao clicar fora
         document.getElementById('modal').addEventListener('click', (e) => {
             if (e.target.id === 'modal') closeModal();
         });
 
-        // Prevenir zoom em inputs no iOS
         document.addEventListener('gesturestart', function (e) {
             e.preventDefault();
         });
